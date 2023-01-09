@@ -1,6 +1,6 @@
-import * as fs from 'fs';
 import * as core from '@actions/core';
 import * as exec from '@actions/exec';
+import * as fs from 'fs';
 import * as path from 'path';
 
 type File = {
@@ -39,7 +39,7 @@ async function run() {
     const outputDir = core.getInput('output_dir'); // ./output-minikube-manusa
 
     core.info('Running kubectl scripts...');
-    for (const namespace of namespaces.split(',')) {
+    for (const namespace of namespaces.split(',').map((n) => n.trim())) {
       core.info(`Dumping logs for namespace: ${namespace}`);
       await exec.exec('./kubelogs.sh', ['-n', namespace, '-o', outputDir, '--timestamps', String(showTimestamps)]);
     }

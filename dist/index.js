@@ -4150,12 +4150,12 @@ var __webpack_exports__ = {};
 (() => {
 "use strict";
 __nccwpck_require__.r(__webpack_exports__);
-/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(147);
-/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(fs__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(186);
-/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nccwpck_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _actions_exec__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(514);
-/* harmony import */ var _actions_exec__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nccwpck_require__.n(_actions_exec__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(186);
+/* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_exec__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(514);
+/* harmony import */ var _actions_exec__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nccwpck_require__.n(_actions_exec__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(147);
+/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nccwpck_require__.n(fs__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var path__WEBPACK_IMPORTED_MODULE_3__ = __nccwpck_require__(17);
 /* harmony import */ var path__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__nccwpck_require__.n(path__WEBPACK_IMPORTED_MODULE_3__);
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -4172,10 +4172,10 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 
 
 function getFileTree(dir, fileTree = { name: dir, type: 'directory', children: [] }) {
-    const files = fs__WEBPACK_IMPORTED_MODULE_0__.readdirSync(dir);
+    const files = fs__WEBPACK_IMPORTED_MODULE_2__.readdirSync(dir);
     for (const file of files) {
         const filePath = `${dir}/${file}`;
-        const stat = fs__WEBPACK_IMPORTED_MODULE_0__.statSync(filePath);
+        const stat = fs__WEBPACK_IMPORTED_MODULE_2__.statSync(filePath);
         if (stat.isFile()) {
             fileTree.children.push({ name: file, type: 'file' });
         }
@@ -4188,22 +4188,22 @@ function getFileTree(dir, fileTree = { name: dir, type: 'directory', children: [
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const namespaces = _actions_core__WEBPACK_IMPORTED_MODULE_1__.getInput('namespaces');
-            const showTimestamps = Boolean(_actions_core__WEBPACK_IMPORTED_MODULE_1__.getInput('show_timestamps'));
-            const outputDir = _actions_core__WEBPACK_IMPORTED_MODULE_1__.getInput('output_dir'); // ./output-minikube-manusa
-            _actions_core__WEBPACK_IMPORTED_MODULE_1__.info('Running kubectl scripts...');
-            for (const namespace of namespaces.split(',')) {
-                _actions_core__WEBPACK_IMPORTED_MODULE_1__.info(`Dumping logs for namespace: ${namespace}`);
-                yield _actions_exec__WEBPACK_IMPORTED_MODULE_2__.exec('./kubelogs.sh', ['-n', namespace, '-o', outputDir, '--timestamps', String(showTimestamps)]);
+            const namespaces = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('namespaces');
+            const showTimestamps = Boolean(_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('show_timestamps'));
+            const outputDir = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('output_dir'); // ./output-minikube-manusa
+            _actions_core__WEBPACK_IMPORTED_MODULE_0__.info('Running kubectl scripts...');
+            for (const namespace of namespaces.split(',').map((n) => n.trim())) {
+                _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(`Dumping logs for namespace: ${namespace}`);
+                yield _actions_exec__WEBPACK_IMPORTED_MODULE_1__.exec('./kubelogs.sh', ['-n', namespace, '-o', outputDir, '--timestamps', String(showTimestamps)]);
             }
-            _actions_core__WEBPACK_IMPORTED_MODULE_1__.info('Generating file tree...');
+            _actions_core__WEBPACK_IMPORTED_MODULE_0__.info('Generating file tree...');
             const fileTree = getFileTree(outputDir);
             fileTree.name = '/';
-            fs__WEBPACK_IMPORTED_MODULE_0__.writeFileSync(path__WEBPACK_IMPORTED_MODULE_3__.join(outputDir, 'filetree.json'), JSON.stringify(fileTree));
-            _actions_core__WEBPACK_IMPORTED_MODULE_1__.info('Done!');
+            fs__WEBPACK_IMPORTED_MODULE_2__.writeFileSync(path__WEBPACK_IMPORTED_MODULE_3__.join(outputDir, 'filetree.json'), JSON.stringify(fileTree));
+            _actions_core__WEBPACK_IMPORTED_MODULE_0__.info('Done!');
         }
         catch (error) {
-            _actions_core__WEBPACK_IMPORTED_MODULE_1__.setFailed(error.message);
+            _actions_core__WEBPACK_IMPORTED_MODULE_0__.setFailed(error.message);
         }
     });
 }
