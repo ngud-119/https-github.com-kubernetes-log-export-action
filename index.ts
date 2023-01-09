@@ -32,6 +32,8 @@ function getFileTree(dir: string, fileTree: FileTree = { name: dir, type: 'direc
 const rootDir = './output-minikube-manusa';
 const fileTree = getFileTree(rootDir);
 
+fileTree.name = '/';
+
 fs.writeFileSync("./output-minikube-manusa/filetree.json", JSON.stringify(fileTree));
 
 console.log("Done!");
