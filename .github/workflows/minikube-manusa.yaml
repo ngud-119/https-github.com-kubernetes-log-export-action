@@ -14,11 +14,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
       - name: Setup Minikube
         uses: manusa/actions-setup-minikube@v2.7.2
         with:
@@ -33,35 +28,12 @@ jobs:
           sleep 30
 
       - name: Dump Kubernetes Logs
-        run: |
-          ./kubelogs.sh -n kube-system -o output-minikube-manusa --timestamps true
-          ./kubelogs.sh -n default -o output-minikube-manusa --timestamps true
-
-      - name: Log File Sizes
-        run: |
-          ls -lhR output-minikube-manusa
-
-      - name: Generate Filetree
-        run: |
-          yarn install
-          yarn script index.ts
+        uses: ./
+        with:
+          namespaces: default, kube-system
+          show_timestamps: 'true'
+          output_dir: ./output-minikube-manusa
 
       - name: Run Stoat Action
         uses: stoat-dev/stoat-action@v0
         if: always()
-
-#           - name: Setup node
-#   uses: actions/setup-node@v3
-#   with:
-#     node-version: '16'
-# - name: Setup cache
-#   uses: actions/cache@v3
-#   with:
-#     path: |
-#       ${{ github.workspace }}/action/node_modules
-#       ${{ github.workspace }}/cli/node_modules
-#     key: ${{ runner.os }}-node-16-cli-${{ hashFiles('cli/yarn.lock') }}-${{ hashFiles('action/yarn.lock') }}
-# - name: Install action dependencies
-#   run: |
-#     yarn install --frozen-lockfile
-
