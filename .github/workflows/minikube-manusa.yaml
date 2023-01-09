@@ -34,8 +34,8 @@ jobs:
 
       - name: Dump Kubernetes Logs
         run: |
-          ./kubelogs.sh -n kube-system -o output-minikube-manusa
-          ./kubelogs.sh -n default -o output-minikube-manusa
+          ./kubelogs.sh -n kube-system -o output-minikube-manusa --timestamps true
+          ./kubelogs.sh -n default -o output-minikube-manusa --timestamps true
 
       - name: Log File Sizes
         run: |
