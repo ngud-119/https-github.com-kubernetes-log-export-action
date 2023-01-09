@@ -29,13 +29,8 @@ jobs:
 
       - name: Dump Kubernetes Logs
         run: |
-          sudo apt-get install whiptail
-          curl https://raw.githubusercontent.com/eduardobaitello/kubelogs/master/kubelogs -o kubelogs.sh
-          chmod +x kubelogs.sh
-          mkdir -p output-minikube-manusa/kube-system
-          ./kubelogs.sh -n kube-system -o output-minikube-manusa/kube-system
-          mkdir -p output-minikube-manusa/default
-          ./kubelogs.sh -n default -o output-minikube-manusa/default
+          ./kubelogs.sh -n kube-system -o output-minikube-manusa
+          ./kubelogs.sh -n default -o output-minikube-manusa
 
       - name: Log File Sizes
         run: |
