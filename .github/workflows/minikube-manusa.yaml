@@ -1,4 +1,4 @@
-name: Test Kubernetes Plugin
+name: Minikube (manusa/actions-setup-minikube)
 on:
   pull_request:
     branches:
@@ -24,7 +24,7 @@ jobs:
       - name: Apply Manifests
         run: |
           kubectl apply -f manifests/whalesay.yaml
-          kubectl apply -f manifests/postgres.yaml
+          kubectl apply -f manifests/redis.yaml
           sleep 30
 
       - name: Dump Kubernetes Logs
@@ -42,10 +42,8 @@ jobs:
           ls -lhR output-minikube-manusa
 
       - name: Run Stoat Action
-        uses: ./
+        uses: stoat-dev/stoat-action@v0
         if: always()
-
-
 
 #           - name: Setup node
 #   uses: actions/setup-node@v3
