@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# based on https://github.com/eduardobaitello/kubelogs
+
 set -e
 
 VERSION="v1.0.0"
@@ -36,9 +38,6 @@ function select_namespace() {
 # Get pod list from selected namespace
 function select_pods() {
   PODS=(`kubectl get pods --namespace=${NAMESPACE} --output=jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}' | awk 'NF {print $1; print $1}'`)
-  # POD_LIST=(`kubectl get pods --namespace=${NAMESPACE} --output=jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}' | awk 'NF {print $1; print $1}'`)
-  # if [[ -z ${POD_LIST[@]} ]]; then echo "No pods found for namespace ${NAMESPACE}!" >&2; exit 1; fi
-  # PODS=(`whiptail --noitem --separate-output --title "Select pods from namespace ${NAMESPACE}" --checklist "choose" 16 78 10 "${POD_LIST[@]}" 3>&1 1>&2 2>&3`)
 }
 
 # Validate output directory
