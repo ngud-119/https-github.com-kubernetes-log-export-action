@@ -129,6 +129,7 @@ plugins:
       metadata:
         name: "Kubernetes Logs"
       path: output
+      file_viewer: true
 ```
 
 You get a nifty link in each of your pull requests that links to an interactive log viewer for all of your Kubernetes logs!
