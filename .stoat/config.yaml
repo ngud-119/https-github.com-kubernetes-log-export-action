@@ -4,8 +4,13 @@ enabled: true
 plugins:
   job_runtime:
     enabled: true
-# todo: enable once https://github.com/stoat-dev/stoat-action/pull/116 is merged
-#  static_hosting:
+  static_hosting:
+    minikube-manusa:
+      metadata:
+        name: "Minikube (manusa/actions-setup-minikube)"
+      path: output-minikube-manusa
+
+# todo: enable file viewer and these once https://github.com/stoat-dev/stoat-action/pull/116 is merged
 #    k3d-actions:
 #      metadata:
 #        name: "k3s (actions/setup-k3d-k3s)"
@@ -14,10 +19,6 @@ plugins:
 #      metadata:
 #        name: "k3s (actions/actions-k3s)"
 #      path: output-k3s-actions
-#    minikube-manusa:
-#      metadata:
-#        name: "Minikube (manusa/actions-setup-minikube)"
-#      path: output-minikube-manusa
 #    minikube-medyagh:
 #      metadata:
 #        name: "Minikube (medyagh/setup-minikube)"
