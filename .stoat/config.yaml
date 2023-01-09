@@ -1,0 +1,24 @@
+---
+version: 1
+enabled: true
+plugins:
+  job_runtime:
+    enabled: true
+# todo: enable once https://github.com/stoat-dev/stoat-action/pull/116 is merged
+#  static_hosting:
+#    k3d-actions:
+#      metadata:
+#        name: "k3s (actions/setup-k3d-k3s)"
+#      path: output-k3d-actions
+#    k3s-actions:
+#      metadata:
+#        name: "k3s (actions/actions-k3s)"
+#      path: output-k3s-actions
+#    minikube-manusa:
+#      metadata:
+#        name: "Minikube (manusa/actions-setup-minikube)"
+#      path: output-minikube-manusa
+#    minikube-medyagh:
+#      metadata:
+#        name: "Minikube (medyagh/setup-minikube)"
+#      path: output-minikube-medyagh
