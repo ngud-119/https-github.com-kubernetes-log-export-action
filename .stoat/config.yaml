@@ -5,21 +5,20 @@ plugins:
   job_runtime:
     enabled: true
   static_hosting:
+    # todo: enable file viewer once https://github.com/stoat-dev/stoat-action/pull/116 is merged
+    k3s-debianmaster:
+      metadata:
+        name: "k3s (debianmaster/actions-k3s)"
+      path: output-k3s-debianmaster
+    k3s-nolar:
+      metadata:
+        name: "k3s (nolar/setup-k3d-k3s)"
+      path: output-k3s-nolar
     minikube-manusa:
       metadata:
         name: "Minikube (manusa/actions-setup-minikube)"
       path: output-minikube-manusa
-
-# todo: enable file viewer and these once https://github.com/stoat-dev/stoat-action/pull/116 is merged
-#    k3d-actions:
-#      metadata:
-#        name: "k3s (actions/setup-k3d-k3s)"
-#      path: output-k3d-actions
-#    k3s-actions:
-#      metadata:
-#        name: "k3s (actions/actions-k3s)"
-#      path: output-k3s-actions
-#    minikube-medyagh:
-#      metadata:
-#        name: "Minikube (medyagh/setup-minikube)"
-#      path: output-minikube-medyagh
+    minikube-medyagh:
+      metadata:
+        name: "Minikube (medyagh/setup-minikube)"
+      path: output-minikube-medyagh
