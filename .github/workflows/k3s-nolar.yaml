@@ -1,0 +1,38 @@
+name: k3s (nolar/setup-k3d-k3s)
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup k3s
+        uses: nolar/setup-k3d-k3s@v1
+        with:
+          version: v1.21
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Apply Manifests
+        run: |
+          kubectl apply -f manifests/whalesay.yaml
+          kubectl apply -f manifests/redis.yaml
+          sleep 30
+
+      - name: Dump Kubernetes Logs
+        uses: ./
+        with:
+          namespaces: default, kube-system
+          show_timestamps: 'true'
+          output_dir: ./output-k3s-nolar
+
+      - name: Run Stoat Action
+        uses: stoat-dev/stoat-action@v0
+        if: always()

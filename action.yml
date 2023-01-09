@@ -1,0 +1,19 @@
+name: 'Kubernetes Log Export Action'
+description: 'Exports Kubernetes logs and generates a file tree for use with https://stoat.dev/'
+author: 'Stoat Dev'
+branding:
+  icon: 'sun'
+  color: 'white'
+inputs:
+  namespaces:
+    default: default
+    description: a comma-separated list of namespaces used for exporting logs
+  show_timestamps:
+    default: 'true'
+    description: if 'true', each log line will be prefixed with the Kubernetes timestamp. if 'false', no prefix.
+  output_dir:
+    default: ./kubernetes-logs
+    description: the directory you want to export your logs into
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
