@@ -21,10 +21,10 @@ jobs:
           kubernetes version: 'v1.25.4'
           github token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Apply Manifets
+      - name: Apply Manifests
         run: |
-          kubectl apply -f ../kubernetes/whalesay.yaml
-          kubectl apply -f ../kubernetes/postgres.yaml
+          kubectl apply -f manifests/whalesay.yaml
+          kubectl apply -f manifests/postgres.yaml
           sleep 30
 
       - name: Dump Kubernetes Logs
